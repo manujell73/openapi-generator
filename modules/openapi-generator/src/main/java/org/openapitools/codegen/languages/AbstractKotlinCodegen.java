@@ -761,7 +761,8 @@ public abstract class AbstractKotlinCodegen extends DefaultCodegen implements Co
         if (name.length() == 0) {
             return "DefaultApi";
         }
-        return (this.apiSuffix.isEmpty() ? camelize(name) : camelize(name) + this.apiSuffix);
+        String suffix = this.apiSuffix.isEmpty() ? this.apiNameSuffix : this.apiSuffix;
+        return (this.apiSuffix.isEmpty() ? camelize(name) : camelize(name) + suffix);
     }
 
     /**

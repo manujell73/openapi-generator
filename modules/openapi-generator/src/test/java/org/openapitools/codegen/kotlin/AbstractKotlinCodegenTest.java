@@ -245,6 +245,21 @@ public class AbstractKotlinCodegenTest {
     }
 
     @Test
+    public void convertApiNameWithApiNameSuffix() {
+        codegen.setApiNameSuffix("Test");
+        assertEquals(codegen.toApiName("Fake"), "FakeTest");
+        assertEquals(codegen.toApiName(""), "DefaultApi");
+    }
+
+    @Test
+    public void convertApiNamePrioritizesLegacyApiSuffix() {
+        codegen.setApiNameSuffix("IgnoreMe");
+        codegen.setApiSuffix("UseMe");
+        assertEquals(codegen.toApiName("Fake"), "FakeUseMe");
+        assertEquals(codegen.toApiName(""), "DefaultApi");
+    }
+
+    @Test
     public void apIFileFolder() {
         codegen.setOutputDir("/User/open/api/tools");
         codegen.setSourceFolder("src/folder");
